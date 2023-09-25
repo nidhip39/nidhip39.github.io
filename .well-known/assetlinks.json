@@ -1,1 +1,9 @@
-[]
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.snb.neo.dev",
+    "sha256_cert_fingerprints":
+    ["05:85:9B:E1:2B:CD:47:B1:A9:20:18:3B:8F:45:D9:E3:10:5F:63:D2:C1:89:3F:AE:3E:94:11:81:50:A6:8C:AE"]
+  }
+}]
