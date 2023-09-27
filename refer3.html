@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body onload="redirect()">
+    <script>
+        function getMobileOperatingSystem() {
+            console.log('Inside getMobileOperatingSystem method -- to determine platform');
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            console.log('Inside getMobileOperatingSystem method -- user agent ===> ', userAgent);
+    
+            if (/windows phone/i.test(userAgent)) {
+                return 'Windows Phone';
+            }
+        
+            if (/android/i.test(userAgent)) {
+                return 'Android';
+            }
+        
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return 'iOS';
+            }
+        
+            return "unknown";
+        }
+    
+        function redirect() {
+          console.log('Inside redirect method');
+          const searchParams = new URLSearchParams(window.location.search);
+          const referralCode = searchParams.get('referralCode');
+          console.log('Referral code --> ', referralCode); // check referral code sent in query params
+
+          let platform = getMobileOperatingSystem();
+          console.log('Inside redirect method, Platform ==> ', platform);
+
+            if(platform === "iOS"){
+              console.log('Inside redirect method, Platform iOS');
+
+              setTimeout(function () { 
+                  window.location = 'https://apps.apple.com/sa/app/snb-mobile/id1593644558'; }, 3); //App store
+                  window.location = 'com.snbdv.retail.dev://referral?referralCode=' + referralCode; //redirect to this link in safari
+            }
+            else if(platform === "Android"){
+              console.log('Inside redirect method, Platform Android');
+
+              setTimeout(function () { 
+                  window.location = 'https://play.google.com/store/apps/details?id=com.snb.alahlimobile'; }, 3);//Play store
+                  window.location = 'snbneo://document-dev.neo.sa/refer?referralCode=' + referralCode;  //redirect to this link in default browser
+            }
+        }
+      </script>
+  </body>
+</html>
