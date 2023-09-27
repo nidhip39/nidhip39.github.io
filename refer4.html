@@ -59,10 +59,10 @@
               setTimeout(function () { 
                   window.location = 'https://play.google.com/store/apps/details?id=com.snb.alahlimobile'; }, 3);//Play store
                   if(!domainEnv){
-                    window.location = 'snbneo://document-dev.neo.sa/refer?referralCode=' + referralCode;  //redirect to this link in default browser
+                    window.location = 'snbneo://document.neo.sa/refer?referralCode=' + referralCode;  //redirect to this link in default browser
                   }
                   else{
-                    window.location = 'snbneo://document-'+domainEnv+'/refer?referralCode=' + referralCode;  //redirect URL for dev, sit, uat
+                    window.location = 'snbneo://document-'+domainEnv+'.neo.sa/refer?referralCode=' + referralCode;  //redirect URL for dev, sit, uat
                   }
                 }
         }
