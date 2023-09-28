@@ -6,7 +6,6 @@
   <body onload="redirect()">
     <script>
         function getMobileOperatingSystem() {
-            console.log('Inside getMobileOperatingSystem method -- to determine platform');
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
             console.log('Inside getMobileOperatingSystem method -- user agent ===> ', userAgent);
     
@@ -26,9 +25,13 @@
         }
     
         function redirect() {
-          console.log('Inside redirect method');
+          console.log('Inside redirect method - from html hosted on root');
+          
           const searchParams = new URLSearchParams(window.location.search);
           const referralCode = searchParams.get('referralCode');
+          const domainEnv = window.location.hostname.split('.')[0].split('-')[1];
+
+          console.log('Domain for corresponding environment --> ', domainEnv);
           console.log('Referral code --> ', referralCode); // check referral code sent in query params
 
           let platform = getMobileOperatingSystem();
@@ -39,14 +42,24 @@
 
               setTimeout(function () { 
                   window.location = 'https://apps.apple.com/sa/app/snb-mobile/id1593644558'; }, 3); //App store
-                  window.location = 'com.snbdv.retail.dev://referral?referralCode=' + referralCode; //redirect to this link in safari
+
+                  if(domainEnv !== 'dev' && domainEnv.length > 0){
+                    window.location = 'com.snb.neo.'+domainEnv+'://referral?referralCode=' + referralCode; //redirect url for SIT, UAT
+                  }
+                  else if (domainEnv !== 'dev' && !domainEnv){
+                    window.location = 'com.snb.neo://referral?referralCode=' + referralCode; // redirect url for Prod
+                  }
+                  else{
+                    window.location = 'com.snbdv.retail.'+domainEnv+'://referral?referralCode=' + referralCode; //redirect url for DEV
+                  }
             }
             else if(platform === "Android"){
               console.log('Inside redirect method, Platform Android');
 
               setTimeout(function () { 
-                  window.location = 'https://play.google.com/store/apps/details?id=com.snb.alahlimobile'; }, 3);//Play store
-                  window.location = 'https://www.document-dev.neo.sa/refer?referralCode=' + referralCode;  //redirect to this link in default browser
+                  window.location = 'https://play.google.com/store/apps/details?id=com.snb.alahlimobile'; }, 5);//Play store
+                  window.location = 'snbneo://document.neo.sa/refer?referralCode=' + referralCode;
+                
             }
         }
       </script>
