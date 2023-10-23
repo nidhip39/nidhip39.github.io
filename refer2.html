@@ -24,14 +24,17 @@
         }
     
         function redirect() {
-          
+          console.log('Inside redirect method');
           const searchParams = new URLSearchParams(window.location.search);
           const referralCode = searchParams.get('referralCode');
           const domainEnv = window.location.hostname.split('.')[0].split('-')[1];
 
+          console.log('Inside redirect method ---- domain ::::: ', domainEnv);
+
           let platform = getMobileOperatingSystem();
 
             if(platform === "iOS"){
+                   console.log('Inside iOS');
 
                   if(domainEnv !== 'dev' && domainEnv.length > 0){
                     window.location = 'com.snb.neo.'+domainEnv+'://referral?referralCode=' + referralCode; //redirect url for SIT, UAT
@@ -43,13 +46,16 @@
                     window.location = 'com.snbdv.retail.'+domainEnv+'://referral?referralCode=' + referralCode; //redirect url for DEV
                   }
                setTimeout(function () { 
+                  console.log('Inside iOS -- setTimeout -- App store');
                   window.location = 'https://apps.apple.com/sa/app/snb-mobile/id1593644558'; }, 3); //App store
 
             }
             else if(platform === "Android"){
+                console.log('Inside Android');
                 window.location = 'snbneo://document.neo.sa/refer?referralCode=' + referralCode;  //redirect to this link in default browser
 
                 setTimeout(function () { 
+                  console.log('Inside Android -- setTimeout -- App store');
                   window.location = 'https://play.google.com/store/apps/details?id=com.snb.alahlimobile'; }, 3);//Play store
             }
             
