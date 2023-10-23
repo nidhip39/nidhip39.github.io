@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -27,7 +28,8 @@
           console.log('Inside redirect method');
           const searchParams = new URLSearchParams(window.location.search);
           const referralCode = searchParams.get('referralCode');
-          const domainEnv = window.location.hostname.split('.')[0].split('-')[1];
+          //const domainEnv = window.location.hostname.split('.')[0].split('-')[1];
+          const domainEnv = "uat";
 
           console.log('Inside redirect method ---- domain ::::: ', domainEnv);
 
@@ -37,6 +39,7 @@
                    console.log('Inside iOS');
 
                   if(domainEnv !== 'dev' && domainEnv.length > 0){
+                    console.log('Inside if -- uat redirect url')
                     window.location = 'com.snb.neo.'+domainEnv+'://referral?referralCode=' + referralCode; //redirect url for SIT, UAT
                   }
                   else if (domainEnv !== 'dev' && !domainEnv){
